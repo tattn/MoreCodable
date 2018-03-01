@@ -68,6 +68,35 @@ let decoder = URLQueryItemsDecoder()
 let parameter = try decoder.decode(Parameter.self, from: params)
 ```
 
+## ObjectMerger
+
+```swift
+struct APIResponse: Encodable {
+    let id: Int
+    let title: String
+    let foo: String
+}
+
+struct APIResponse2: Encodable {
+    let tags: [String]
+}
+
+struct Model: Decodable {
+    let id: Int
+    let title: String
+    let tags: [String]
+}
+
+let response = APIResponse(id: 0, title: "Awesome article", foo: "bar")
+let response2 = APIResponse2(tags: ["swift", "ios", "macos"])
+let model = try ObjectMerger().merge(Model.self, response, response2)
+
+// success
+XCTAssertEqual(model.id, response.id)
+XCTAssertEqual(model.title, response.title)
+XCTAssertEqual(model.tags, response2.tags)
+```
+
 ## RuleBasedCodingKey
 
 ```swift
@@ -188,7 +217,7 @@ XCTAssertEqual(root.articleId.value.description, "abc")
 
 # Related project
 
-*DataConvertible*  
+**DataConvertible**  
 https://github.com/tattn/DataConvertible
 
 # Contributing
