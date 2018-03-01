@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24028DD0204856B400721297 /* ObjectMerger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24028DCF204856B400721297 /* ObjectMerger.swift */; };
+		24028DD2204859A400721297 /* ObjectMergerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24028DD1204859A400721297 /* ObjectMergerTests.swift */; };
 		242C3E262030CBE500AAA577 /* URLQueryItemsEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242C3E252030CBE500AAA577 /* URLQueryItemsEncoder.swift */; };
 		242C3E292030D70300AAA577 /* URLQueryItemsEncoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242C3E272030D68900AAA577 /* URLQueryItemsEncoderTests.swift */; };
 		242C3E2B2030D83600AAA577 /* URLQueryItemsDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242C3E2A2030D83600AAA577 /* URLQueryItemsDecoder.swift */; };
@@ -40,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		24028DCF204856B400721297 /* ObjectMerger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectMerger.swift; sourceTree = "<group>"; };
+		24028DD1204859A400721297 /* ObjectMergerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectMergerTests.swift; sourceTree = "<group>"; };
 		242C3E252030CBE500AAA577 /* URLQueryItemsEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLQueryItemsEncoder.swift; sourceTree = "<group>"; };
 		242C3E272030D68900AAA577 /* URLQueryItemsEncoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLQueryItemsEncoderTests.swift; sourceTree = "<group>"; };
 		242C3E2A2030D83600AAA577 /* URLQueryItemsDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLQueryItemsDecoder.swift; sourceTree = "<group>"; };
@@ -115,6 +119,7 @@
 				242C3E252030CBE500AAA577 /* URLQueryItemsEncoder.swift */,
 				242C3E2A2030D83600AAA577 /* URLQueryItemsDecoder.swift */,
 				242C3E2C2030DDDE00AAA577 /* URLQueryItem+.swift */,
+				24028DCF204856B400721297 /* ObjectMerger.swift */,
 				2491406C2039DF1D00D3E4CD /* Failable.swift */,
 				249140702039E27F00D3E4CD /* StringTo.swift */,
 				2491407E203C85A500D3E4CD /* RuleBasedCodingKey.swift */,
@@ -132,6 +137,7 @@
 				2491406E2039DF7B00D3E4CD /* FailableTests.swift */,
 				2491407C203C7D5200D3E4CD /* StringToTests.swift */,
 				24914080203C89D000D3E4CD /* RuleBasedCodingKeyTests.swift */,
+				24028DD1204859A400721297 /* ObjectMergerTests.swift */,
 				24A4FF4020302322001618E1 /* Products */,
 				24A4FF5820302490001618E1 /* Info.plist */,
 			);
@@ -255,6 +261,7 @@
 				249140712039E27F00D3E4CD /* StringTo.swift in Sources */,
 				242C3E2D2030DDDE00AAA577 /* URLQueryItem+.swift in Sources */,
 				24A4FF4D20302407001618E1 /* AnyCodingKey.swift in Sources */,
+				24028DD0204856B400721297 /* ObjectMerger.swift in Sources */,
 				242C3E2B2030D83600AAA577 /* URLQueryItemsDecoder.swift in Sources */,
 				242C3E262030CBE500AAA577 /* URLQueryItemsEncoder.swift in Sources */,
 				24A4FF4B203023E6001618E1 /* Storage.swift in Sources */,
@@ -273,6 +280,7 @@
 				242C3E292030D70300AAA577 /* URLQueryItemsEncoderTests.swift in Sources */,
 				242C3E2F2030E28500AAA577 /* URLQueryItemsDecoderTests.swift in Sources */,
 				24A4FF5720302490001618E1 /* DictionaryEncoderTests.swift in Sources */,
+				24028DD2204859A400721297 /* ObjectMergerTests.swift in Sources */,
 				2491407D203C7D5200D3E4CD /* StringToTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

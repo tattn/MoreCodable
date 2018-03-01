@@ -24,7 +24,7 @@ open class DictionaryEncoder: Encoder {
     }
 
     open func singleValueContainer() -> SingleValueEncodingContainer {
-        return UnkeyedContanier(encoder: self, codingPath: codingPath)
+        return SingleValueContanier(encoder: self, codingPath: codingPath)
     }
 
     private func box<T: Encodable>(_ value: T) throws -> Any {
@@ -116,11 +116,11 @@ extension DictionaryEncoder {
         }
     }
 
-    private class UnkeyedContanier: UnkeyedEncodingContainer, SingleValueEncodingContainer {
+    private class UnkeyedContanier: UnkeyedEncodingContainer {
         var encoder: DictionaryEncoder
         private(set) var codingPath: [CodingKey]
         private var storage: Storage
-        var count: Int { return (storage.last as? [Any])?.count ?? 0 }
+        var count: Int { return storage.count }
 
         init(encoder: DictionaryEncoder, codingPath: [CodingKey]) {
             self.encoder = encoder
@@ -145,19 +145,19 @@ extension DictionaryEncoder {
 
         func encodeNil() throws {}
         func encode(_ value: Bool) throws {}
-        func encode(_ value: Int) throws { push(value) }
-        func encode(_ value: Int8) throws { push(value) }
-        func encode(_ value: Int16) throws { push(value) }
-        func encode(_ value: Int32) throws { push(value) }
-        func encode(_ value: Int64) throws { push(value) }
-        func encode(_ value: UInt) throws { push(value) }
-        func encode(_ value: UInt8) throws { push(value) }
-        func encode(_ value: UInt16) throws { push(value) }
-        func encode(_ value: UInt32) throws { push(value) }
-        func encode(_ value: UInt64) throws { push(value) }
-        func encode(_ value: Float) throws { push(value) }
-        func encode(_ value: Double) throws { push(value) }
-        func encode(_ value: String) throws { push(value) }
+        func encode(_ value: Int) throws { push(try encoder.box(value)) }
+        func encode(_ value: Int8) throws { push(try encoder.box(value)) }
+        func encode(_ value: Int16) throws { push(try encoder.box(value)) }
+        func encode(_ value: Int32) throws { push(try encoder.box(value)) }
+        func encode(_ value: Int64) throws { push(try encoder.box(value)) }
+        func encode(_ value: UInt) throws { push(try encoder.box(value)) }
+        func encode(_ value: UInt8) throws { push(try encoder.box(value)) }
+        func encode(_ value: UInt16) throws { push(try encoder.box(value)) }
+        func encode(_ value: UInt32) throws { push(try encoder.box(value)) }
+        func encode(_ value: UInt64) throws { push(try encoder.box(value)) }
+        func encode(_ value: Float) throws { push(try encoder.box(value)) }
+        func encode(_ value: Double) throws { push(try encoder.box(value)) }
+        func encode(_ value: String) throws { push(try encoder.box(value)) }
         func encode<T: Encodable>(_ value: T) throws {
             encoder.codingPath.append(AnyCodingKey(index: count))
             defer { encoder.codingPath.removeLast() }
@@ -180,5 +180,41 @@ extension DictionaryEncoder {
         func superEncoder() -> Encoder {
             return encoder
         }
+    }
+
+    private class SingleValueContanier: SingleValueEncodingContainer {
+        var encoder: DictionaryEncoder
+        private(set) var codingPath: [CodingKey]
+        private var storage: Storage
+        var count: Int { return storage.count }
+
+        init(encoder: DictionaryEncoder, codingPath: [CodingKey]) {
+            self.encoder = encoder
+            self.codingPath = codingPath
+            self.storage = encoder.storage
+        }
+
+        private func push(_ value: Any) {
+            guard var array = storage.popContainer() as? [Any] else { assertionFailure(); return }
+            array.append(value)
+            storage.push(container: array)
+        }
+
+        func encodeNil() throws {}
+        func encode(_ value: Bool) throws { storage.push(container: value) }
+        func encode(_ value: Int) throws { storage.push(container: value) }
+        func encode(_ value: Int8) throws { storage.push(container: value) }
+        func encode(_ value: Int16) throws { storage.push(container: value) }
+        func encode(_ value: Int32) throws { storage.push(container: value) }
+        func encode(_ value: Int64) throws { storage.push(container: value) }
+        func encode(_ value: UInt) throws { storage.push(container: value) }
+        func encode(_ value: UInt8) throws { storage.push(container: value) }
+        func encode(_ value: UInt16) throws { storage.push(container: value) }
+        func encode(_ value: UInt32) throws { storage.push(container: value) }
+        func encode(_ value: UInt64) throws { storage.push(container: value) }
+        func encode(_ value: Float) throws { storage.push(container: value) }
+        func encode(_ value: Double) throws { storage.push(container: value) }
+        func encode(_ value: String) throws { storage.push(container: value) }
+        func encode<T: Encodable>(_ value: T) throws { storage.push(container: try encoder.box(value)) }
     }
 }
