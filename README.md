@@ -186,6 +186,11 @@ XCTAssertEqual(root.int.value, 100)
 XCTAssertEqual(root.articleId.value.description, "abc")
 ```
 
+# Related project
+
+*DataConvertible*  
+https://github.com/tattn/DataConvertible
+
 # Contributing
 
 1. Fork it!
