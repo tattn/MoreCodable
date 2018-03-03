@@ -3,8 +3,17 @@
 <h5 align="center">MoreCodable expands the possibilities of "Codable".</h5>
 
 <div align="center">
+  <a href="https://travis-ci.org/tattn/MoreCodable">
+    <img src="https://travis-ci.org/tattn/MoreCodable.svg?branch=master" alt="Build Status" />
+  </a>
   <a href="https://github.com/Carthage/Carthage">
     <img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage compatible" />
+  </a>
+  <a href="http://cocoapods.org/pods/MoreCodable">
+    <img src="https://img.shields.io/cocoapods/v/MoreCodable.svg" alt="CocoaPods" />
+  </a>
+  <a href="http://cocoapods.org/pods/MoreCodable">
+    <img src="https://img.shields.io/cocoapods/p/MoreCodable.svg" alt="Platform" />
   </a>
   <a href="https://developer.apple.com/swift">
     <img src="https://img.shields.io/badge/Swift-4-F16D39.svg" alt="Swift Version" />
