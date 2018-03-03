@@ -55,6 +55,9 @@ xcuserdata/
 *.xcscmblueprint
 UserInterfaceState.xcuserstate
 
-#Carthage/Build
+## Carthage/Build
 Carthage
+
+## Develop
+poddev
 
