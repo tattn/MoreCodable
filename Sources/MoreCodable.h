@@ -6,7 +6,7 @@
 //  Copyright © 2018年 tattn. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for MoreCodable.
 FOUNDATION_EXPORT double MoreCodableVersionNumber;
