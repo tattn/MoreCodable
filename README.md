@@ -25,6 +25,11 @@
 github "tattn/MoreCodable"
 ```
 
+## CocoaPods
+
+```ruby
+pod 'MoreCodable'
+```
 
 # Feature
 
