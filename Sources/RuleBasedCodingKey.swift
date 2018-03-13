@@ -30,6 +30,7 @@ public extension SnakeCaseCodingKey {
 }
 
 public protocol UpperCamelCaseCodingKey: RuleBasedCodingKey {}
+public typealias PascalCaseCodingKey = UpperCamelCaseCodingKey
 
 public extension UpperCamelCaseCodingKey {
     func codingKeyRule(key: String) -> String {
