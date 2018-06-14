@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 open class DictionaryDecoder: Decoder {
     open var codingPath: [CodingKey]
     open var userInfo: [CodingUserInfoKey: Any] = [:]
@@ -36,6 +37,16 @@ open class DictionaryDecoder: Decoder {
         return SingleValueContanier(decoder: self)
     }
 
+    private func unbox<T>(_ value: Any, as type: T.Type) throws -> T {
+        return try unbox(value, as: type, codingPath: codingPath)
+    }
+
+    private func unbox<T>(_ value: Any, as type: T.Type, codingPath: [CodingKey]) throws -> T {
+        let description = "Expected to decode \(type) but found \(Swift.type(of: value)) instead."
+        let error = DecodingError.typeMismatch(T.self, DecodingError.Context(codingPath: codingPath, debugDescription: description))
+        return try castOrThrow(T.self, value, error: error)
+    }
+
     private func unbox<T: Decodable>(_ value: Any, as type: T.Type) throws -> T {
         return try unbox(value, as: type, codingPath: codingPath)
     }
@@ -50,6 +61,15 @@ open class DictionaryDecoder: Decoder {
             defer { _ = storage.popContainer() }
             return try T(from: self)
         }
+    }
+
+    private func lastContainer<T>(forType type: T.Type) throws -> T {
+        guard let value = storage.last else {
+            let description = "Expected \(type) but found nil value instead."
+            let error = DecodingError.Context(codingPath: codingPath, debugDescription: description)
+            throw DecodingError.valueNotFound(type, error)
+        }
+        return try unbox(value, as: T.self)
     }
 
     private func lastContainer<T: Decodable>(forType type: T.Type) throws -> T {
@@ -86,7 +106,7 @@ extension DictionaryDecoder {
             self.container = container
         }
 
-        var allKeys: [Key] { return container.keys.flatMap { Key(stringValue: $0) } }
+        var allKeys: [Key] { return container.keys.compactMap { Key(stringValue: $0) } }
         func contains(_ key: Key) -> Bool { return container[key.stringValue] != nil }
 
         private func find(forKey key: CodingKey) throws -> Any {
@@ -181,12 +201,11 @@ extension DictionaryDecoder {
             try checkIndex(type)
 
             decoder.codingPath.append(AnyCodingKey(index: currentIndex))
-            defer { decoder.codingPath.removeLast() }
-
-            let value = try decoder.unbox(container[currentIndex], as: T.self)
-
-            defer { currentIndex += 1 }
-            return try decoder.unbox(value, as: T.self)
+            defer {
+                decoder.codingPath.removeLast()
+                currentIndex += 1
+            }
+            return try decoder.unbox(container[currentIndex], as: T.self)
         }
 
         func decodeNil() throws -> Bool {
