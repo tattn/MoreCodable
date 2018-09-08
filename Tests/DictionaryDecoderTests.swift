@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import MoreCodable
+@testable import MoreCodable
 
 class DictionaryDecoderTests: XCTestCase {
 
@@ -37,4 +37,19 @@ class DictionaryDecoderTests: XCTestCase {
         XCTAssertEqual(user.age, dictionary["age"] as? Int)
     }
 
+    func testFailDecoding() {
+        decoder.storage.push(container: "string"); do {
+            let container = try! decoder.singleValueContainer()
+            XCTAssertNil(try? container.decode(Bool.self))
+        }
+
+        struct CustomType: Decodable {
+            let value: Int = 0
+        }
+        decoder = DictionaryDecoder()
+        decoder.storage.push(container: CustomType()); do {
+            let container = try! decoder.singleValueContainer()
+            XCTAssertNil(try? container.decode(Bool.self))
+        }
+    }
 }

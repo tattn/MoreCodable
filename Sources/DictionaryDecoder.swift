@@ -12,7 +12,7 @@ import Foundation
 open class DictionaryDecoder: Decoder {
     open var codingPath: [CodingKey]
     open var userInfo: [CodingUserInfoKey: Any] = [:]
-    private var storage = Storage()
+    var storage = Storage()
 
     public init() {
         codingPath = []
@@ -25,33 +25,27 @@ open class DictionaryDecoder: Decoder {
 
     open func container<Key: CodingKey>(keyedBy type: Key.Type) throws -> KeyedDecodingContainer<Key> {
         let container = try lastContainer(forType: [String: Any].self)
-        return KeyedDecodingContainer(KeyedContainer<Key>(decoder: self, codingPath: [], container: container))
+        return KeyedDecodingContainer(KeyedContainer<Key>(decoder: self, codingPath: [], container: try unboxRawType(container, as: [String: Any].self)))
     }
 
     open func unkeyedContainer() throws -> UnkeyedDecodingContainer {
         let container = try lastContainer(forType: [Any].self)
-        return UnkeyedContanier(decoder: self, container: container)
+        return UnkeyedContanier(decoder: self, container: try unboxRawType(container, as: [Any].self))
     }
 
     open func singleValueContainer() throws -> SingleValueDecodingContainer {
         return SingleValueContanier(decoder: self)
     }
 
-    private func unbox<T>(_ value: Any, as type: T.Type) throws -> T {
-        return try unbox(value, as: type, codingPath: codingPath)
-    }
-
-    private func unbox<T>(_ value: Any, as type: T.Type, codingPath: [CodingKey]) throws -> T {
+    private func unboxRawType<T>(_ value: Any, as type: T.Type) throws -> T {
         let description = "Expected to decode \(type) but found \(Swift.type(of: value)) instead."
         let error = DecodingError.typeMismatch(T.self, DecodingError.Context(codingPath: codingPath, debugDescription: description))
         return try castOrThrow(T.self, value, error: error)
     }
 
     private func unbox<T: Decodable>(_ value: Any, as type: T.Type) throws -> T {
-        let description = "Expected to decode \(type) but found \(Swift.type(of: value)) instead."
-        let error = DecodingError.typeMismatch(T.self, DecodingError.Context(codingPath: codingPath, debugDescription: description))
         do {
-            return try castOrThrow(T.self, value, error: error)
+            return try unboxRawType(value, as: T.self)
         } catch {
             storage.push(container: value)
             defer { _ = storage.popContainer() }
@@ -59,22 +53,13 @@ open class DictionaryDecoder: Decoder {
         }
     }
 
-    private func lastContainer<T>(forType type: T.Type) throws -> T {
+    private func lastContainer<T>(forType type: T.Type) throws -> Any {
         guard let value = storage.last else {
             let description = "Expected \(type) but found nil value instead."
             let error = DecodingError.Context(codingPath: codingPath, debugDescription: description)
             throw DecodingError.valueNotFound(type, error)
         }
-        return try unbox(value, as: T.self)
-    }
-
-    private func lastContainer<T: Decodable>(forType type: T.Type) throws -> T {
-        guard let value = storage.last else {
-            let description = "Expected \(type) but found nil value instead."
-            let error = DecodingError.Context(codingPath: codingPath, debugDescription: description)
-            throw DecodingError.valueNotFound(type, error)
-        }
-        return try unbox(value, as: T.self)
+        return value
     }
 
     private func notFound(key: CodingKey) -> DecodingError {
@@ -137,7 +122,7 @@ extension DictionaryDecoder {
             defer { decoder.codingPath.removeLast() }
 
             let value = try find(forKey: key)
-            let dictionary = try decoder.unbox(value, as: [String: Any].self)
+            let dictionary = try decoder.unboxRawType(value, as: [String: Any].self)
             return KeyedDecodingContainer(KeyedContainer<NestedKey>(decoder: decoder, codingPath: [], container: dictionary))
         }
 
@@ -146,7 +131,7 @@ extension DictionaryDecoder {
             defer { decoder.codingPath.removeLast() }
 
             let value = try find(forKey: key)
-            let array = try decoder.unbox(value, as: [Any].self)
+            let array = try decoder.unboxRawType(value, as: [Any].self)
             return UnkeyedContanier(decoder: decoder, container: array)
         }
 
@@ -270,8 +255,9 @@ extension DictionaryDecoder {
             self.codingPath = decoder.codingPath
         }
 
-        func _decode<T: Decodable>(_ type: T.Type) throws -> T {
-            return try decoder.lastContainer(forType: type)
+        func _decode<T>(_ type: T.Type) throws -> T {
+            let container = try decoder.lastContainer(forType: type)
+            return try decoder.unboxRawType(container, as: T.self)
         }
 
         func decodeNil() -> Bool { return decoder.storage.last == nil }
@@ -289,6 +275,9 @@ extension DictionaryDecoder {
         func decode(_ type: Float.Type) throws -> Float { return try _decode(type) }
         func decode(_ type: Double.Type) throws -> Double { return try _decode(type) }
         func decode(_ type: String.Type) throws -> String { return try _decode(type) }
-        func decode<T: Decodable>(_ type: T.Type) throws -> T { return try _decode(type) }
+        func decode<T: Decodable>(_ type: T.Type) throws -> T {
+            let container = try decoder.lastContainer(forType: type)
+            return try decoder.unbox(container, as: T.self)
+        }
     }
 }
