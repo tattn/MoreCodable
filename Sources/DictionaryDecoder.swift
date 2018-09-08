@@ -48,10 +48,6 @@ open class DictionaryDecoder: Decoder {
     }
 
     private func unbox<T: Decodable>(_ value: Any, as type: T.Type) throws -> T {
-        return try unbox(value, as: type, codingPath: codingPath)
-    }
-
-    private func unbox<T: Decodable>(_ value: Any, as type: T.Type, codingPath: [CodingKey]) throws -> T {
         let description = "Expected to decode \(type) but found \(Swift.type(of: value)) instead."
         let error = DecodingError.typeMismatch(T.self, DecodingError.Context(codingPath: codingPath, debugDescription: description))
         do {
@@ -89,7 +85,6 @@ open class DictionaryDecoder: Decoder {
 
 extension DictionaryDecoder {
     open func decode<T : Decodable>(_ type: T.Type, from container: Any) throws -> T {
-        storage.push(container: container)
         return try unbox(container, as: T.self)
     }
 }
