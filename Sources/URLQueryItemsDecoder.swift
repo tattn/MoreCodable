@@ -86,7 +86,7 @@ extension URLQueryItemsDecoder {
             self.container = container
         }
 
-        var allKeys: [Key] { return container.flatMap { Key(stringValue: $0.name) } }
+        var allKeys: [Key] { return container.compactMap { Key(stringValue: $0.name) } }
         func contains(_ key: Key) -> Bool { return container.contains(where: { $0.name == key.stringValue }) }
 
         private func find(forKey key: CodingKey) throws -> URLQueryItem {
