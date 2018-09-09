@@ -31,6 +31,8 @@
 		24A4FF6720304D8F001618E1 /* DictionaryDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A4FF6520304D8C001618E1 /* DictionaryDecoderTests.swift */; };
 		24CF7FE42144DC8D007A5C6C /* CodableDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CF7FE32144DC8D007A5C6C /* CodableDictionary.swift */; };
 		24CF7FE62144DCA4007A5C6C /* CodableDictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CF7FE52144DCA4007A5C6C /* CodableDictionaryTests.swift */; };
+		24CF7FE82144E76D007A5C6C /* CodableAny.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CF7FE72144E76D007A5C6C /* CodableAny.swift */; };
+		24CF7FEA2144E7DC007A5C6C /* CodableAnyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CF7FE92144E7DC007A5C6C /* CodableAnyTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +73,8 @@
 		24A4FF6520304D8C001618E1 /* DictionaryDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryDecoderTests.swift; sourceTree = "<group>"; };
 		24CF7FE32144DC8D007A5C6C /* CodableDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableDictionary.swift; sourceTree = "<group>"; };
 		24CF7FE52144DCA4007A5C6C /* CodableDictionaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableDictionaryTests.swift; sourceTree = "<group>"; };
+		24CF7FE72144E76D007A5C6C /* CodableAny.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableAny.swift; sourceTree = "<group>"; };
+		24CF7FE92144E7DC007A5C6C /* CodableAnyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableAnyTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +132,7 @@
 				249140702039E27F00D3E4CD /* StringTo.swift */,
 				2491407E203C85A500D3E4CD /* RuleBasedCodingKey.swift */,
 				24CF7FE32144DC8D007A5C6C /* CodableDictionary.swift */,
+				24CF7FE72144E76D007A5C6C /* CodableAny.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -144,6 +149,7 @@
 				24914080203C89D000D3E4CD /* RuleBasedCodingKeyTests.swift */,
 				24028DD1204859A400721297 /* ObjectMergerTests.swift */,
 				24CF7FE52144DCA4007A5C6C /* CodableDictionaryTests.swift */,
+				24CF7FE92144E7DC007A5C6C /* CodableAnyTests.swift */,
 				24A4FF4020302322001618E1 /* Products */,
 				24A4FF5820302490001618E1 /* Info.plist */,
 			);
@@ -266,6 +272,7 @@
 				2491406D2039DF1D00D3E4CD /* Failable.swift in Sources */,
 				249140712039E27F00D3E4CD /* StringTo.swift in Sources */,
 				242C3E2D2030DDDE00AAA577 /* URLQueryItem+.swift in Sources */,
+				24CF7FE82144E76D007A5C6C /* CodableAny.swift in Sources */,
 				24A4FF4D20302407001618E1 /* AnyCodingKey.swift in Sources */,
 				24028DD0204856B400721297 /* ObjectMerger.swift in Sources */,
 				242C3E2B2030D83600AAA577 /* URLQueryItemsDecoder.swift in Sources */,
@@ -282,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2491406F2039DF7B00D3E4CD /* FailableTests.swift in Sources */,
+				24CF7FEA2144E7DC007A5C6C /* CodableAnyTests.swift in Sources */,
 				24CF7FE62144DCA4007A5C6C /* CodableDictionaryTests.swift in Sources */,
 				24914081203C89D000D3E4CD /* RuleBasedCodingKeyTests.swift in Sources */,
 				24A4FF6720304D8F001618E1 /* DictionaryDecoderTests.swift in Sources */,
