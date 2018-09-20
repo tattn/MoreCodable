@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'MoreCodable'
-  s.version          = '0.1.2'
+  s.version          = '0.2.0'
   s.summary          = 'MoreCodable expands the possibilities of Codable.'
 
   s.description      = <<-DESC
@@ -19,7 +19,7 @@ It contains DictionaryEncoder/Decoder, URLQueryItemsEncoder/Decoder, ObjectMerge
   s.watchos.deployment_target = '2.0'
   s.tvos.deployment_target = '9.0'
 
-  s.source_files = 'Sources/**/*'
+  s.source_files = 'Sources/**/*.{swift,h,m}'
   
   s.public_header_files = 'Sources/**/*.h'
   s.frameworks = 'Foundation'
