@@ -21,21 +21,18 @@ class CodableDictionaryTests: XCTestCase {
     func testEnumKey() {
         enum Key: String, Codable, CodingKey {
             case foo
-            case bar
         }
 
         let originalEnumKeyedDictionary: [Key: Int] = [
-            .foo: 100,
-            .bar: 200
+            .foo: 100
         ]
 
         let enumKeyedDictionary: CodableDictionary<Key, Int> = [
-            .foo: 100,
-            .bar: 200
+            .foo: 100
         ]
 
-        let json = "{\"foo\":100,\"bar\":200}"
-        let unexpectedJSON = "[\"foo\",100,\"bar\",200]"
+        let json = "{\"foo\":100}"
+        let unexpectedJSON = "[\"foo\",100]"
 
         do {
             let encodedData = try! jsonEncoder.encode(originalEnumKeyedDictionary)
