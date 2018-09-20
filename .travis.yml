@@ -1,6 +1,6 @@
 language: objective-c
 os: osx
-osx_image: xcode9.3
+osx_image: xcode10
 
 env:
   global:
@@ -26,7 +26,7 @@ matrix:
 
 script:
   - set -o pipefail
-  - xcodebuild $ACTION -project $PROJECT -scheme $SCHEME -sdk $SDK -destination 'name=iPhone 8,OS=11.3' -configuration $CONFIG ENABLE_TESTABILITY=YES | xcpretty
+  - xcodebuild $ACTION -project $PROJECT -scheme $SCHEME -sdk $SDK -destination 'name=iPhone XS,OS=12.0' -configuration $CONFIG ENABLE_TESTABILITY=YES | xcpretty
 
 notifications:
   email: false
