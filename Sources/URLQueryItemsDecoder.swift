@@ -94,8 +94,8 @@ extension URLQueryItemsDecoder {
                 .unwrapOrThrow(error: decoder.notFound(key: key))
         }
         
-        private func isNill(forKey key: CodingKey) throws -> Bool {
-            return container.first(where: { $0.name == key.stringValue }) == nil
+        private func contains(_ key: CodingKey) -> Bool {
+            return container.contains(where: { $0.name == key.stringValue })
         }
 
         func _decode<T: Decodable & LosslessStringConvertible>(_ type: T.Type, forKey key: Key) throws -> T {
@@ -112,7 +112,7 @@ extension URLQueryItemsDecoder {
             return try decoder.unbox(value, as: T.self)
         }
 
-        func decodeNil(forKey key: Key) throws -> Bool { return try isNill(forKey: key) }
+        func decodeNil(forKey key: Key) throws -> Bool { return !contains(key) }
         func decode(_ type: Bool.Type, forKey key: Key) throws -> Bool { return try _decode(type, forKey: key) }
         func decode(_ type: Int.Type, forKey key: Key) throws -> Int { return try _decode(type, forKey: key) }
         func decode(_ type: Int8.Type, forKey key: Key) throws -> Int8 { return try _decode(type, forKey: key) }

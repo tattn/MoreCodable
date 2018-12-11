@@ -49,14 +49,13 @@ class URLQueryItemsDecoderTests: XCTestCase {
         }
         let params: [URLQueryItem] = [
             URLQueryItem(name: "string", value: "abc"),
-            URLQueryItem(name: "int", value: "123"),
             URLQueryItem(name: "double", value: Double.pi.description)
         ]
         let parameter = try decoder.decode(Parameter.self, from: params)
         
         XCTAssertEqual(parameter.string, params[0].value)
-        XCTAssertEqual(parameter.int?.description, params[1].value)
-        XCTAssertEqual(parameter.double?.description, params[2].value)
+        XCTAssertEqual(parameter.int?.description, nil)
+        XCTAssertEqual(parameter.double?.description, params[1].value)
     }
     
     func testDecodeEmptyOptionalParameter() throws {
@@ -65,9 +64,7 @@ class URLQueryItemsDecoderTests: XCTestCase {
             let int: Int?
             let double: Double?
         }
-        let params: [URLQueryItem] = [
-        ]
-        let parameter = try decoder.decode(Parameter.self, from: params)
+        let parameter = try decoder.decode(Parameter.self, from: [])
         
         XCTAssertEqual(parameter.string, nil)
         XCTAssertEqual(parameter.int, nil)
