@@ -24,7 +24,7 @@ open class DictionaryEncoder: Encoder {
     }
 
     open func singleValueContainer() -> SingleValueEncodingContainer {
-        return SingleValueContanier(encoder: self, codingPath: codingPath)
+        return SingleValueContainer(encoder: self, codingPath: codingPath)
     }
 
     private func box<T: Encodable>(_ value: T) throws -> Any {
