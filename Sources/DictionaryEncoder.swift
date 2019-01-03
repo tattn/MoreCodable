@@ -40,7 +40,7 @@ extension DictionaryEncoder {
         } catch (let error) {
             throw EncodingError.invalidValue(value,
                                              EncodingError.Context(codingPath: [],
-                                                                   debugDescription: "Top-evel \(T.self) did not encode any values.",
+                                                                   debugDescription: "Top-level \(T.self) did not encode any values.",
                                                 underlyingError: error)
             )
         }
