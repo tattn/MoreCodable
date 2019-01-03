@@ -34,7 +34,7 @@ open class DictionaryDecoder: Decoder {
     }
 
     open func singleValueContainer() throws -> SingleValueDecodingContainer {
-        return SingleValueContanier(decoder: self)
+        return SingleValueContainer(decoder: self)
     }
 
     private func unboxRawType<T>(_ value: Any, as type: T.Type) throws -> T {
@@ -246,7 +246,7 @@ extension DictionaryDecoder {
         }
     }
 
-    private class SingleValueContanier: SingleValueDecodingContainer {
+    private class SingleValueContainer: SingleValueDecodingContainer {
         private var decoder: DictionaryDecoder
         private(set) var codingPath: [CodingKey]
 

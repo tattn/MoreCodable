@@ -182,7 +182,7 @@ extension DictionaryEncoder {
         }
     }
 
-    private class SingleValueContanier: SingleValueEncodingContainer {
+    private class SingleValueContainer: SingleValueEncodingContainer {
         var encoder: DictionaryEncoder
         private(set) var codingPath: [CodingKey]
         private var storage: Storage

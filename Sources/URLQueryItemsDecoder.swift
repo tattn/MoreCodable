@@ -33,7 +33,7 @@ open class URLQueryItemsDecoder: Decoder {
     }
 
     open func singleValueContainer() throws -> SingleValueDecodingContainer {
-        return SingleValueContanier(decoder: self)
+        return SingleValueContainer(decoder: self)
     }
 
     private func unbox<T: Decodable>(_ value: Any, as type: T.Type) throws -> T {
@@ -231,7 +231,7 @@ extension URLQueryItemsDecoder {
         }
     }
 
-    private class SingleValueContanier: SingleValueDecodingContainer {
+    private class SingleValueContainer: SingleValueDecodingContainer {
         private var decoder: URLQueryItemsDecoder
         private(set) var codingPath: [CodingKey]
 
