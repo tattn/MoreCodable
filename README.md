@@ -16,7 +16,7 @@
     <img src="https://img.shields.io/cocoapods/p/MoreCodable.svg" alt="Platform" />
   </a>
   <a href="https://developer.apple.com/swift">
-    <img src="https://img.shields.io/badge/Swift-4-F16D39.svg" alt="Swift Version" />
+    <img src="https://img.shields.io/badge/Swift-5-F16D39.svg" alt="Swift Version" />
   </a>
   <a href="./LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-green.svg?style=flat-square" alt="license:MIT" />
@@ -245,6 +245,12 @@ https://github.com/tattn/DataConvertible
 3. Commit your changes: `git commit -am 'Add some feature'`
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :D
+
+## Support this project
+
+Donating to help me continue working on this project.
+
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/tattn/)
 
 # License
 
