@@ -100,7 +100,13 @@ extension DictionaryDecoder {
             return try decoder.unbox(value, as: T.self)
         }
 
-        func decodeNil(forKey key: Key) throws -> Bool { throw decoder.notFound(key: key) }
+        func decodeNil(forKey key: Key) throws -> Bool {
+            guard let entry = self.container[key.stringValue] else {
+                throw decoder.notFound(key: key)
+            }
+
+            return entry is NSNull
+        }
         func decode(_ type: Bool.Type, forKey key: Key) throws -> Bool { return try _decode(type, forKey: key) }
         func decode(_ type: Int.Type, forKey key: Key) throws -> Int { return try _decode(type, forKey: key) }
         func decode(_ type: Int8.Type, forKey key: Key) throws -> Int8 { return try _decode(type, forKey: key) }
@@ -190,7 +196,13 @@ extension DictionaryDecoder {
 
         func decodeNil() throws -> Bool {
             try checkIndex(Any?.self)
-            return false
+
+            if self.container[self.currentIndex] is NSNull {
+                self.currentIndex += 1
+                return true
+            } else {
+                return false
+            }
         }
         func decode(_ type: Bool.Type) throws -> Bool { return try _decode(type) }
         func decode(_ type: Int.Type) throws -> Int { return try _decode(type) }

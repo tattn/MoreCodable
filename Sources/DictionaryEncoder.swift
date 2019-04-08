@@ -74,7 +74,7 @@ extension DictionaryEncoder {
             storage.push(container: dictionary)
         }
 
-        func encodeNil(forKey key: Key) throws {}
+        func encodeNil(forKey key: Key) throws { set(NSNull(), forKey: key.stringValue) }
         func encode(_ value: Bool, forKey key: Key) throws { set(value, forKey: key.stringValue) }
         func encode(_ value: Int, forKey key: Key) throws { set(value, forKey: key.stringValue) }
         func encode(_ value: Int8, forKey key: Key) throws { set(value, forKey: key.stringValue) }
@@ -143,7 +143,7 @@ extension DictionaryEncoder {
             storage.push(container: array)
         }
 
-        func encodeNil() throws {}
+        func encodeNil() throws { push(NSNull()) }
         func encode(_ value: Bool) throws {}
         func encode(_ value: Int) throws { push(try encoder.box(value)) }
         func encode(_ value: Int8) throws { push(try encoder.box(value)) }
@@ -200,7 +200,7 @@ extension DictionaryEncoder {
             storage.push(container: array)
         }
 
-        func encodeNil() throws {}
+        func encodeNil() throws { storage.push(container: NSNull()) }
         func encode(_ value: Bool) throws { storage.push(container: value) }
         func encode(_ value: Int) throws { storage.push(container: value) }
         func encode(_ value: Int8) throws { storage.push(container: value) }
