@@ -52,4 +52,15 @@ class DictionaryDecoderTests: XCTestCase {
             XCTAssertNil(try? container.decode(Bool.self))
         }
     }
+
+    func testOptionalValues() throws {
+        struct Model: Codable, Equatable {
+            let int: Int?
+            let string: String?
+            let double: Double?
+        }
+
+        XCTAssertEqual(try decoder.decode(Model.self, from: ["int": 0, "string": "test"]), Model(int: 0, string: "test", double: nil))
+        XCTAssertEqual(try decoder.decode(Model.self, from: ["double": 0.5, "string": "test"]), Model(int: nil, string: "test", double: 0.5))
+    }
 }

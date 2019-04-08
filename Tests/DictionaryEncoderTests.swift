@@ -69,6 +69,12 @@ class DictionaryEncoderTests: XCTestCase {
             (model: Model(int: 100, string: nil, double: 0.5), count: 2),
             (model: Model(int: 100, string: "a", double: 0.5), count: 3),
         ]
+        do {
+            let dictionary = try encoder.encode(seeds[0].model)
+            XCTAssertNil(dictionary["int"])
+            XCTAssertNil(dictionary["string"])
+            XCTAssertNil(dictionary["double"])
+        }
         for seed in seeds {
             let dictionary = try encoder.encode(seed.model)
             XCTAssertEqual(seed.model.int, dictionary["int"] as? Int)
@@ -76,5 +82,21 @@ class DictionaryEncoderTests: XCTestCase {
             XCTAssertEqual(seed.model.double, dictionary["double"] as? Double)
             XCTAssertEqual(dictionary.keys.count, seed.count)
         }
+    }
+
+    func testEncodeArray() throws {
+        XCTAssertThrowsError(try encoder.encode([1, 2, 3]))
+    }
+
+    func testEncodeAndDecode() throws {
+        struct Model: Codable, Equatable {
+            let int: Int?
+            let string: String?
+            let double: Double?
+        }
+        let value = Model(int: 1, string: nil, double: 0.5)
+        let encodedValue = try encoder.encode(value)
+        let decodedValue = try DictionaryDecoder().decode(Model.self, from: encodedValue)
+        XCTAssertEqual(value, decodedValue)
     }
 }
