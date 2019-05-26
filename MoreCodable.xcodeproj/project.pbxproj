@@ -33,6 +33,11 @@
 		24CF7FE62144DCA4007A5C6C /* CodableDictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CF7FE52144DCA4007A5C6C /* CodableDictionaryTests.swift */; };
 		24CF7FE82144E76D007A5C6C /* CodableAny.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CF7FE72144E76D007A5C6C /* CodableAny.swift */; };
 		24CF7FEA2144E7DC007A5C6C /* CodableAnyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CF7FE92144E7DC007A5C6C /* CodableAnyTests.swift */; };
+		C47ABFC3229875FD005A06B5 /* MultiDateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47ABFC2229875FD005A06B5 /* MultiDateFormat.swift */; };
+		C47ABFC522987F09005A06B5 /* MoreJSONEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47ABFC422987F09005A06B5 /* MoreJSONEncoder.swift */; };
+		C47ABFC722987F14005A06B5 /* MoreJSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47ABFC622987F14005A06B5 /* MoreJSONDecoder.swift */; };
+		C47ABFCD22991B09005A06B5 /* MoreJSONEncoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47ABFCC22991B09005A06B5 /* MoreJSONEncoderTests.swift */; };
+		C47ABFCF22992041005A06B5 /* MoreJSONDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47ABFCE22992041005A06B5 /* MoreJSONDecoderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +80,11 @@
 		24CF7FE52144DCA4007A5C6C /* CodableDictionaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableDictionaryTests.swift; sourceTree = "<group>"; };
 		24CF7FE72144E76D007A5C6C /* CodableAny.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableAny.swift; sourceTree = "<group>"; };
 		24CF7FE92144E7DC007A5C6C /* CodableAnyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableAnyTests.swift; sourceTree = "<group>"; };
+		C47ABFC2229875FD005A06B5 /* MultiDateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiDateFormat.swift; sourceTree = "<group>"; };
+		C47ABFC422987F09005A06B5 /* MoreJSONEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreJSONEncoder.swift; sourceTree = "<group>"; };
+		C47ABFC622987F14005A06B5 /* MoreJSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreJSONDecoder.swift; sourceTree = "<group>"; };
+		C47ABFCC22991B09005A06B5 /* MoreJSONEncoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreJSONEncoderTests.swift; sourceTree = "<group>"; };
+		C47ABFCE22992041005A06B5 /* MoreJSONDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreJSONDecoderTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +143,9 @@
 				2491407E203C85A500D3E4CD /* RuleBasedCodingKey.swift */,
 				24CF7FE32144DC8D007A5C6C /* CodableDictionary.swift */,
 				24CF7FE72144E76D007A5C6C /* CodableAny.swift */,
+				C47ABFC2229875FD005A06B5 /* MultiDateFormat.swift */,
+				C47ABFC422987F09005A06B5 /* MoreJSONEncoder.swift */,
+				C47ABFC622987F14005A06B5 /* MoreJSONDecoder.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -152,6 +165,8 @@
 				24CF7FE92144E7DC007A5C6C /* CodableAnyTests.swift */,
 				24A4FF4020302322001618E1 /* Products */,
 				24A4FF5820302490001618E1 /* Info.plist */,
+				C47ABFCC22991B09005A06B5 /* MoreJSONEncoderTests.swift */,
+				C47ABFCE22992041005A06B5 /* MoreJSONDecoderTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -279,8 +294,11 @@
 				24028DD0204856B400721297 /* ObjectMerger.swift in Sources */,
 				242C3E2B2030D83600AAA577 /* URLQueryItemsDecoder.swift in Sources */,
 				242C3E262030CBE500AAA577 /* URLQueryItemsEncoder.swift in Sources */,
+				C47ABFC3229875FD005A06B5 /* MultiDateFormat.swift in Sources */,
 				24A4FF4B203023E6001618E1 /* Storage.swift in Sources */,
 				24CF7FE42144DC8D007A5C6C /* CodableDictionary.swift in Sources */,
+				C47ABFC522987F09005A06B5 /* MoreJSONEncoder.swift in Sources */,
+				C47ABFC722987F14005A06B5 /* MoreJSONDecoder.swift in Sources */,
 				24A4FF6220302B98001618E1 /* InternalFunction.swift in Sources */,
 				24A4FF6420302D41001618E1 /* DictionaryDecoder.swift in Sources */,
 			);
@@ -293,6 +311,8 @@
 				2491406F2039DF7B00D3E4CD /* FailableTests.swift in Sources */,
 				24CF7FEA2144E7DC007A5C6C /* CodableAnyTests.swift in Sources */,
 				24CF7FE62144DCA4007A5C6C /* CodableDictionaryTests.swift in Sources */,
+				C47ABFCF22992041005A06B5 /* MoreJSONDecoderTests.swift in Sources */,
+				C47ABFCD22991B09005A06B5 /* MoreJSONEncoderTests.swift in Sources */,
 				24914081203C89D000D3E4CD /* RuleBasedCodingKeyTests.swift in Sources */,
 				24A4FF6720304D8F001618E1 /* DictionaryDecoderTests.swift in Sources */,
 				242C3E292030D70300AAA577 /* URLQueryItemsEncoderTests.swift in Sources */,
