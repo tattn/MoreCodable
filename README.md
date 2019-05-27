@@ -229,6 +229,60 @@ XCTAssertEqual(root.int.value, 100)
 XCTAssertEqual(root.articleId.value.description, "abc")
 ```
 
+## MultiDateFormat
+```swift
+let json = """
+{
+    "date": "2019.05.27",
+    "dateTime": "2019-05-27T17:26:59+0000",
+    "timestamp": 1558978068,
+    "timestampMilliseconds": 1558978141863,
+    "custom": "1558978068"
+}
+""".data(using: .utf8)!
+
+struct Document: Codable {
+    var date: Date
+    var dateTime: Date
+    var timestamp: Date
+    var timestampMilliseconds: Date
+    var custom: Date
+}
+
+extension Document: MultiDateFormat {
+    
+    static var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(identifier: "UTC")
+        formatter.dateFormat = "yyyy.MM.dd"
+        return formatter
+    }()
+    
+    static func dateFormat(for codingKey: CodingKey) -> DateFormat? {
+        switch codingKey {
+        case CodingKeys.date: return .formatted(dateFormatter)
+        case CodingKeys.dateTime: return .iso8601
+        case CodingKeys.timestamp: return .secondsSince1970
+        case CodingKeys.timestampMilliseconds: return .millisecondsSince1970
+        case CodingKeys.custom: return .custom({ (date, encoder) in
+            var container = encoder.singleValueContainer()
+            try container.encode(String(date.timeIntervalSince1970))
+        }, { (decoder) -> Date in
+            let container = try decoder.singleValueContainer()
+            let string = try container.decode(String.self)
+            let timeInterval = TimeInterval(string)!
+            return Date(timeIntervalSince1970: timeInterval)
+        })
+        default: return nil
+        }
+    }
+    
+}
+
+let decoded = try! MoreJSONDecoder().decode(Document.self, from: json)
+let encoded = try! MoreJSONEncoder().encode(document)
+```
+
 # ToDo
 - [ ] XMLDecoder/XMLEncoder
 - [ ] CSVDecoder/CSVEncoder

@@ -9,22 +9,53 @@
 import XCTest
 @testable import MoreCodable
 
+fileprivate struct Document: Codable {
+    var date: Date
+    var dateTime: Date
+    var timestamp: Date
+    var timestampMilliseconds: Date
+    var custom: Date
+}
+
+extension Document: MultiDateFormat {
+    
+    static var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(identifier: "UTC")
+        formatter.dateFormat = "yyyy.MM.dd"
+        return formatter
+    }()
+    
+    static func dateFormat(for codingKey: CodingKey) -> DateFormat? {
+        switch codingKey {
+        case CodingKeys.date: return .formatted(dateFormatter)
+        case CodingKeys.dateTime: return .iso8601
+        case CodingKeys.timestamp: return .secondsSince1970
+        case CodingKeys.timestampMilliseconds: return .millisecondsSince1970
+        case CodingKeys.custom: return .custom({ (date, encoder) in
+            var container = encoder.singleValueContainer()
+            try container.encode(String(date.timeIntervalSince1970))
+        }, { (decoder) -> Date in
+            let container = try decoder.singleValueContainer()
+            let string = try container.decode(String.self)
+            let timeInterval = TimeInterval(string)!
+            return Date(timeIntervalSince1970: timeInterval)
+        })
+        default: return nil
+        }
+    }
+    
+}
+
 class MoreJSONEncoderTests: XCTestCase {
     
-    struct User: Codable {
-        let name: String
-        let age: Int
-    }
-    
-    var encoder = MoreJSONEncoder()
-
-    override func setUp() {
-        encoder = MoreJSONEncoder()
-    }
-    
-    func testDecodeSimpleModel() throws {
+    func testEncodeSimpleModel() throws {
+        struct User: Codable {
+            let name: String
+            let age: Int
+        }
         let user = User(name: "Tatsuya Tanaka", age: 24)
-        let data = try encoder.encode(user)
+        let data = try MoreJSONEncoder().encode(user)
         XCTAssertGreaterThan(data.count, 0)
         let dic = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
         XCTAssertEqual(user.name, dic["name"] as? String)
@@ -33,49 +64,26 @@ class MoreJSONEncoderTests: XCTestCase {
     }
     
     func testSimpleMultiDateFormat() throws {
-        struct Doc: Codable, MultiDateFormat {
-            
-            static var dateFormatter1: DateFormatter = {
-                let formatter = DateFormatter()
-                formatter.timeZone = TimeZone(identifier: "UTC")
-                formatter.dateFormat = "yyyy-MM-dd-HH-mm"
-                return formatter
-            }()
-            
-            static var dateFormatter2: DateFormatter = {
-                let formatter = DateFormatter()
-                formatter.timeZone = TimeZone(identifier: "UTC")
-                formatter.dateFormat = "yyyy.MM.dd.HH.mm"
-                return formatter
-            }()
-            
-            var id: String
-            var date1: Date
-            var date2: Date
-            
-            static func dateFormat(for codingKey: CodingKey) -> DateFormat? {
-                switch codingKey {
-                case CodingKeys.date1: return .formatted(dateFormatter1)
-                case CodingKeys.date2: return .formatted(dateFormatter2)
-                default: return nil
-                }
-            }
-            
-        }
-        let numSecondsInYear: TimeInterval = 365 * 24 * 60 * 60
-        let doc = Doc(id: "1", date1: Date(timeIntervalSince1970: 0),
-                      date2: Date(timeIntervalSince1970: numSecondsInYear * 1.5))
-        let data = try encoder.encode(doc)
-        XCTAssertGreaterThan(data.count, 0)
+        let date = Date(timeIntervalSince1970: 0)
+        let document = Document(date: date, dateTime: date, timestamp: date, timestampMilliseconds: date, custom: date)
+        let data = try MoreJSONEncoder().encode(document)
         let dic = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-        XCTAssertGreaterThan(data.count, 0)
-        XCTAssertEqual(dic["id"] as? String, doc.id)
-        XCTAssertEqual((dic["date1"] as? String)?.contains("1970"), true)
-        XCTAssertEqual((dic["date2"] as? String)?.contains("1971"), true)
+        
+        XCTAssertTrue(dic["date"] is String)
+        XCTAssertTrue(dic["dateTime"] is String)
+        XCTAssertTrue(dic["timestamp"] is Double)
+        XCTAssertTrue(dic["timestampMilliseconds"] is Double)
+        XCTAssertTrue(dic["custom"] is String)
+        
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "UTC")!
+        let decoded = try! MoreJSONDecoder().decode(Document.self, from: data)
+        for date in [decoded.date, decoded.dateTime, decoded.timestamp, decoded.timestampMilliseconds, decoded.custom] {
+            let components = calendar.dateComponents([.year, .month, .day], from: date)
+            XCTAssertEqual(components.year, 1970)
+            XCTAssertEqual(components.month, 1)
+            XCTAssertEqual(components.day, 1)
+        }
+        
     }
-
-    override func tearDown() {
-        super.tearDown()
-    }
-
 }

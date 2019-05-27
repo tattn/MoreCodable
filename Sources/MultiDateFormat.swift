@@ -1,6 +1,6 @@
 //
 //  MultiDateFormat.swift
-//  MultiDateFormat
+//  MoreCodable
 //
 //  Created by Daniil Pendikov on 24/05/2019.
 //  Copyright © 2019 tattn. All rights reserved.
