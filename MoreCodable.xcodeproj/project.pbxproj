@@ -163,10 +163,10 @@
 				24028DD1204859A400721297 /* ObjectMergerTests.swift */,
 				24CF7FE52144DCA4007A5C6C /* CodableDictionaryTests.swift */,
 				24CF7FE92144E7DC007A5C6C /* CodableAnyTests.swift */,
-				24A4FF4020302322001618E1 /* Products */,
-				24A4FF5820302490001618E1 /* Info.plist */,
 				C47ABFCC22991B09005A06B5 /* MoreJSONEncoderTests.swift */,
 				C47ABFCE22992041005A06B5 /* MoreJSONDecoderTests.swift */,
+				24A4FF4020302322001618E1 /* Products */,
+				24A4FF5820302490001618E1 /* Info.plist */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
