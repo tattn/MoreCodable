@@ -12,6 +12,8 @@
 
 //  Modifications copyright (c) 2019 Daniil Pendikov
 
+import Foundation
+
 fileprivate protocol _JSONStringDictionaryDecodableMarker {
     static var elementType: Decodable.Type { get }
 }
