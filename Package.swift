@@ -1,18 +1,25 @@
-// swift-tools-version:4.0
+// swift-tools-version:5.0
+
 import PackageDescription
 
 let package = Package(
     name: "MoreCodable",
-    products: [
-        .library(name: "MoreCodable", targets: ["MoreCodable"]),
+    platforms: [
+        .macOS(.v10_12),
+        .iOS(.v10),
+        .tvOS(.v10),
+        .watchOS(.v3)
     ],
-    dependencies: [],
+    products: [
+        .library(
+            name: "MoreCodable",
+            targets: ["MoreCodable"])
+    ],
     targets: [
         .target(
-            name: "MoreCodable", 
-            path: "Sources/",
-            exclude: []
-        )
+            name: "MoreCodable",
+            path: "Sources")
     ],
-    swiftLanguageVersions: [4]
+    swiftLanguageVersions: [.v5]
 )
+
