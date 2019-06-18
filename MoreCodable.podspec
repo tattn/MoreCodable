@@ -21,6 +21,5 @@ It contains DictionaryEncoder/Decoder, URLQueryItemsEncoder/Decoder, ObjectMerge
 
   s.source_files = 'Sources/**/*.{swift,h,m}'
   
-  s.public_header_files = 'Sources/**/*.h'
   s.frameworks = 'Foundation'
 end
