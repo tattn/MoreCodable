@@ -19,8 +19,8 @@ It contains DictionaryEncoder/Decoder, URLQueryItemsEncoder/Decoder, ObjectMerge
   s.watchos.deployment_target = '2.0'
   s.tvos.deployment_target = '9.0'
 
-  s.source_files = 'Sources/**/*.{swift,h,m}'
-  
+  s.source_files = 'Sources/**/*.swift'
   s.public_header_files = 'Sources/**/*.h'
+  
   s.frameworks = 'Foundation'
 end
