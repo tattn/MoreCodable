@@ -13,6 +13,7 @@
 //  Modifications copyright (c) 2019 Daniil Pendikov
 
 import Foundation
+import CoreFoundation
 
 fileprivate protocol _JSONStringDictionaryDecodableMarker {
     static var elementType: Decodable.Type { get }
@@ -1108,36 +1109,16 @@ extension _JSONDecoder {
     fileprivate func unbox(_ value: Any, as type: Bool.Type) throws -> Bool? {
         guard !(value is NSNull) else { return nil }
         
-        #if DEPLOYMENT_RUNTIME_SWIFT
-        // Bridging differences require us to split implementations here
-        guard let number = __SwiftValue.store(value) as? NSNumber else {
-            throw DecodingError._typeMismatch(at: self.codingPath, expectation: type, reality: value)
-        }
-        
-        // TODO: Add a flag to coerce non-boolean numbers into Bools?
-        guard number._cfTypeID == CFBooleanGetTypeID() else {
-            throw DecodingError._typeMismatch(at: self.codingPath, expectation: type, reality: value)
-        }
-        
-        return number.boolValue
-        #else
         if let number = value as? NSNumber {
             // TODO: Add a flag to coerce non-boolean numbers into Bools?
-            if number === kCFBooleanTrue as NSNumber {
+            if number === kCFBooleanTrue {
                 return true
-            } else if number === kCFBooleanFalse as NSNumber {
+            } else if number === kCFBooleanFalse {
                 return false
             }
-            
-            /* FIXME: If swift-corelibs-foundation doesn't change to use NSNumber, this code path will need to be included and tested:
-             } else if let bool = value as? Bool {
-             return bool
-             */
-            
         }
         
         throw DecodingError._typeMismatch(at: self.codingPath, expectation: type, reality: value)
-        #endif
     }
     
     fileprivate func unbox(_ value: Any, as type: Int.Type) throws -> Int? {
