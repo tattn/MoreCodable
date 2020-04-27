@@ -11,7 +11,7 @@ import Foundation
 open class DictionaryEncoder: Encoder {
     open var codingPath: [CodingKey] = []
     open var userInfo: [CodingUserInfoKey: Any] = [:]
-    private var storage = Storage()
+    private(set) var storage = Storage()
 
     public init() {}
 
@@ -27,7 +27,7 @@ open class DictionaryEncoder: Encoder {
         return SingleValueContainer(encoder: self, codingPath: codingPath)
     }
 
-    private func box<T: Encodable>(_ value: T) throws -> Any {
+    func box<T: Encodable>(_ value: T) throws -> Any {
         try value.encode(to: self)
         return storage.popContainer()
     }
