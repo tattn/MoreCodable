@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		24028DD0204856B400721297 /* ObjectMerger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24028DCF204856B400721297 /* ObjectMerger.swift */; };
 		24028DD2204859A400721297 /* ObjectMergerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24028DD1204859A400721297 /* ObjectMergerTests.swift */; };
+		241A9AFA24586F5D0044E1B4 /* DictionaryCachableEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A9AF924586F5D0044E1B4 /* DictionaryCachableEncoder.swift */; };
+		241A9AFD24586F930044E1B4 /* DictionaryCachableEncoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A9AFB24586F7D0044E1B4 /* DictionaryCachableEncoderTests.swift */; };
 		242C3E262030CBE500AAA577 /* URLQueryItemsEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242C3E252030CBE500AAA577 /* URLQueryItemsEncoder.swift */; };
 		242C3E292030D70300AAA577 /* URLQueryItemsEncoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242C3E272030D68900AAA577 /* URLQueryItemsEncoderTests.swift */; };
 		242C3E2B2030D83600AAA577 /* URLQueryItemsDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242C3E2A2030D83600AAA577 /* URLQueryItemsDecoder.swift */; };
@@ -53,6 +55,8 @@
 /* Begin PBXFileReference section */
 		24028DCF204856B400721297 /* ObjectMerger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectMerger.swift; sourceTree = "<group>"; };
 		24028DD1204859A400721297 /* ObjectMergerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectMergerTests.swift; sourceTree = "<group>"; };
+		241A9AF924586F5D0044E1B4 /* DictionaryCachableEncoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryCachableEncoder.swift; sourceTree = "<group>"; };
+		241A9AFB24586F7D0044E1B4 /* DictionaryCachableEncoderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryCachableEncoderTests.swift; sourceTree = "<group>"; };
 		242C3E252030CBE500AAA577 /* URLQueryItemsEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLQueryItemsEncoder.swift; sourceTree = "<group>"; };
 		242C3E272030D68900AAA577 /* URLQueryItemsEncoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLQueryItemsEncoderTests.swift; sourceTree = "<group>"; };
 		242C3E2A2030D83600AAA577 /* URLQueryItemsDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLQueryItemsDecoder.swift; sourceTree = "<group>"; };
@@ -134,6 +138,7 @@
 				24A4FF6120302B98001618E1 /* InternalFunction.swift */,
 				24A4FF4E20302421001618E1 /* DictionaryEncoder.swift */,
 				24A4FF6320302D41001618E1 /* DictionaryDecoder.swift */,
+				241A9AF924586F5D0044E1B4 /* DictionaryCachableEncoder.swift */,
 				242C3E252030CBE500AAA577 /* URLQueryItemsEncoder.swift */,
 				242C3E2A2030D83600AAA577 /* URLQueryItemsDecoder.swift */,
 				242C3E2C2030DDDE00AAA577 /* URLQueryItem+.swift */,
@@ -155,6 +160,7 @@
 			children = (
 				24A4FF5620302490001618E1 /* DictionaryEncoderTests.swift */,
 				24A4FF6520304D8C001618E1 /* DictionaryDecoderTests.swift */,
+				241A9AFB24586F7D0044E1B4 /* DictionaryCachableEncoderTests.swift */,
 				242C3E272030D68900AAA577 /* URLQueryItemsEncoderTests.swift */,
 				242C3E2E2030E28500AAA577 /* URLQueryItemsDecoderTests.swift */,
 				2491406E2039DF7B00D3E4CD /* FailableTests.swift */,
@@ -293,6 +299,7 @@
 				24A4FF4D20302407001618E1 /* AnyCodingKey.swift in Sources */,
 				24028DD0204856B400721297 /* ObjectMerger.swift in Sources */,
 				242C3E2B2030D83600AAA577 /* URLQueryItemsDecoder.swift in Sources */,
+				241A9AFA24586F5D0044E1B4 /* DictionaryCachableEncoder.swift in Sources */,
 				242C3E262030CBE500AAA577 /* URLQueryItemsEncoder.swift in Sources */,
 				C47ABFC3229875FD005A06B5 /* MultiDateFormat.swift in Sources */,
 				24A4FF4B203023E6001618E1 /* Storage.swift in Sources */,
@@ -314,6 +321,7 @@
 				C47ABFCF22992041005A06B5 /* MoreJSONDecoderTests.swift in Sources */,
 				C47ABFCD22991B09005A06B5 /* MoreJSONEncoderTests.swift in Sources */,
 				24914081203C89D000D3E4CD /* RuleBasedCodingKeyTests.swift in Sources */,
+				241A9AFD24586F930044E1B4 /* DictionaryCachableEncoderTests.swift in Sources */,
 				24A4FF6720304D8F001618E1 /* DictionaryDecoderTests.swift in Sources */,
 				242C3E292030D70300AAA577 /* URLQueryItemsEncoderTests.swift in Sources */,
 				242C3E2F2030E28500AAA577 /* URLQueryItemsDecoderTests.swift in Sources */,

@@ -9,7 +9,7 @@ import Foundation
  */
 open class DictionaryCachableEncoder: DictionaryEncoder {
     open var userInfoHasher: ([CodingUserInfoKey: Any]) -> AnyHashable = { _ in AnyHashable(0) }
-    open var cache: CacheProtocol = DefaultCache.shared
+    open var cache: DictionaryCachableCacheProtocol = DefaultCache.shared
 
     override func box<T: Encodable>(_ value: T) throws -> Any {
         if let hashableValue = value as? AnyHashable {
@@ -30,12 +30,12 @@ open class DictionaryCachableEncoder: DictionaryEncoder {
 
 // MARK: cache related
 
-public protocol CacheProtocol: class {
+public protocol DictionaryCachableCacheProtocol: class {
     var storage: [AnyHashable: Any] { get set }
 }
 
 extension DictionaryCachableEncoder {
-    open class DefaultCache: CacheProtocol {
+    open class DefaultCache: DictionaryCachableCacheProtocol {
         public static let shared = DefaultCache()
 
         open var storage: [AnyHashable: Any] = [:]
