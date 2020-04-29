@@ -283,6 +283,19 @@ let decoded = try! MoreJSONDecoder().decode(Document.self, from: json)
 let encoded = try! MoreJSONEncoder().encode(document)
 ```
 
+## DictionaryCachableEncoder
+```swift
+struct User: Codable, Hashable { // conform to Hashable
+    let id: Int
+    let name: String
+}
+
+let encoder = DictionaryCachableEncoder()
+let user = User(id: 123, name: "tattn")
+let dictionary: [String: Any] = try! encoder.encode(user) // => {"id": 123, "name": "tattn"}
+try! encoder.encode(user) // use the previous encoded result for the second time 
+```
+
 # ToDo
 - [ ] XMLDecoder/XMLEncoder
 - [ ] CSVDecoder/CSVEncoder
