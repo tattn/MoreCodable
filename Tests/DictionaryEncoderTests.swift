@@ -99,4 +99,39 @@ class DictionaryEncoderTests: XCTestCase {
         let decodedValue = try DictionaryDecoder().decode(Model.self, from: encodedValue)
         XCTAssertEqual(value, decodedValue)
     }
+
+    func testEncodingMultipleTimesUsingTheSameEncoder() throws {
+        struct Element1: Codable, Equatable {
+            let p1: String
+        }
+
+        struct Element2: Codable, Equatable {
+            let p2: String
+        }
+
+        struct ComplexStruct: Codable, Equatable {
+            let element1: Element1
+            let element2: Element2
+
+            init(element1: Element1, element2: Element2) {
+                self.element1 = element1
+                self.element2 = element2
+            }
+
+            func encode(to encoder: Encoder) throws {
+                try element1.encode(to: encoder)
+                try element2.encode(to: encoder)
+            }
+
+            init(from decoder: Decoder) throws {
+                self.element1 = try Element1(from: decoder)
+                self.element2 = try Element2(from: decoder)
+            }
+        }
+
+        let object = ComplexStruct(element1: .init(p1: "p1"), element2: .init(p2: "p2"))
+        let expected = ["p1": "p1", "p2": "p2"]
+        let result = try encoder.encode(object)
+        XCTAssertEqual(result as? [String: String], expected)
+    }
 }
