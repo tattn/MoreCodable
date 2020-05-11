@@ -58,7 +58,9 @@ extension DictionaryEncoder {
             self.codingPath = codingPath
             self.storage = encoder.storage
 
-            storage.push(container: [:] as [String: Any])
+            if storage.count == codingPath.count {
+                storage.push(container: [:] as [String: Any])
+            }
         }
 
         deinit {
