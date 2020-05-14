@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'MoreCodable'
-  s.version          = '1.3.0'
+  s.version          = '1.3.1'
   s.summary          = 'MoreCodable expands the possibilities of Codable.'
 
   s.description      = <<-DESC
