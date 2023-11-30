@@ -42,7 +42,7 @@ class FailableTests: XCTestCase {
 
     func testFailableURL() {
         let json = """
-{"url": "https://foo.com", "url2": "invalid url string"}
+{"url": "https://foo.com", "url2": "a://invalid url string"}
 """.data(using: .utf8)!
 
         struct Model: Codable {

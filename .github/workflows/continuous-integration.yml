@@ -9,15 +9,15 @@ jobs:
     strategy:
       matrix:
         os:
-          - ubuntu-latest
           - macOS-latest
+          - ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - run: rm .swift-version
       - name: Install Swift
-        uses: YOCKOW/Action-setup-swift@master
+        uses: YOCKOW/Action-setup-swift@v1
         with:
-          swift-version: '5.1'
+          swift-version: '5.9'
       - name: Test
         run: swift test --enable-test-discovery

@@ -10,6 +10,7 @@ import Foundation
 
 open class DictionaryEncoder: Encoder {
     open var codingPath: [CodingKey] = []
+    open var dateEncodingStrategy = JSONEncoder.DateEncodingStrategy.deferredToDate
     open var userInfo: [CodingUserInfoKey: Any] = [:]
     private(set) var storage = Storage()
 
@@ -28,8 +29,37 @@ open class DictionaryEncoder: Encoder {
     }
 
     func box<T: Encodable>(_ value: T) throws -> Any {
-        try value.encode(to: self)
-        return storage.popContainer()
+        switch value {
+        case let date as Date:
+            return try wrapDate(date)
+        default:
+            try value.encode(to: self)
+            return storage.popContainer()
+        }
+    }
+
+    func wrapDate(_ date: Date) throws -> Any {
+        switch dateEncodingStrategy {
+        case .deferredToDate:
+            try date.encode(to: self)
+            return storage.popContainer()
+
+        case .secondsSince1970:
+            return TimeInterval(date.timeIntervalSince1970.description) as Any
+
+        case .millisecondsSince1970:
+            return TimeInterval((date.timeIntervalSince1970 * 1000).description) as Any
+
+        case .iso8601:
+            return _iso8601Formatter.string(from: date)
+
+        case .formatted(let formatter):
+            return formatter.string(from: date)
+
+        case .custom(let closure):
+            try closure(date, self)
+            return storage.popContainer()
+        }
     }
 }
 
