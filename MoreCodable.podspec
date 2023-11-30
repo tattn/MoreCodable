@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'MoreCodable'
-  s.version          = '1.3.1'
+  s.version          = '1.3.2'
   s.summary          = 'MoreCodable expands the possibilities of Codable.'
 
   s.description      = <<-DESC
@@ -14,13 +14,13 @@ It contains DictionaryEncoder/Decoder, URLQueryItemsEncoder/Decoder, ObjectMerge
   s.source           = { :git => 'https://github.com/tattn/MoreCodable.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/tanakasan2525'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '13.0'
   # s.osx.deployment_target = '10.10'
-  s.watchos.deployment_target = '2.0'
-  s.tvos.deployment_target = '9.0'
+  s.watchos.deployment_target = '6.0'
+  s.tvos.deployment_target = '13.0'
 
-  s.source_files = 'Sources/**/*.swift'
-  s.public_header_files = 'Sources/**/*.h'
+  s.source_files = 'Sources/*.{swift,h}'
+  s.public_header_files = 'Sources/*.h'
   
   s.frameworks = 'Foundation'
 end
