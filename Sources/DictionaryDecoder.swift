@@ -11,8 +11,18 @@ import Foundation
 
 open class DictionaryDecoder: Decoder {
     open var codingPath: [CodingKey]
+    open var dateDecodingStrategy: DateDecodingStrategy = .deferredToDate
     open var userInfo: [CodingUserInfoKey: Any] = [:]
     var storage = Storage()
+
+    public enum DateDecodingStrategy {
+        case deferredToDate
+        case secondsSince1970
+        case millisecondsSince1970
+        case iso8601
+        case formatted(DateFormatter)
+        case custom((_ decoder: Decoder) throws -> Date)
+    }
 
     public init() {
         codingPath = []
@@ -49,7 +59,46 @@ open class DictionaryDecoder: Decoder {
         } catch {
             storage.push(container: value)
             defer { _ = storage.popContainer() }
+            if type == Date.self {
+                return try unwrapDate() as! T
+            }
             return try T(from: self)
+        }
+    }
+
+    private func unwrapDate() throws -> Date {
+        switch dateDecodingStrategy {
+        case .deferredToDate:
+            return try Date(from: self)
+
+        case .secondsSince1970:
+            let container = SingleValueContainer(decoder: self)
+            let double = try container.decode(Double.self)
+            return Date(timeIntervalSince1970: double)
+
+        case .millisecondsSince1970:
+            let container = SingleValueContainer(decoder: self)
+            let double = try container.decode(Double.self)
+            return Date(timeIntervalSince1970: double / 1000.0)
+
+        case .iso8601:
+            let container = SingleValueContainer(decoder: self)
+            let string = try container.decode(String.self)
+            guard let date = _iso8601Formatter.date(from: string) else {
+                throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: self.codingPath, debugDescription: "Expected date string to be ISO8601-formatted."))
+            }
+            return date
+
+        case .formatted(let formatter):
+            let container = SingleValueContainer(decoder: self)
+            let string = try container.decode(String.self)
+            guard let date = formatter.date(from: string) else {
+                throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: self.codingPath, debugDescription: "Date string does not match format expected by formatter."))
+            }
+            return date
+
+        case .custom(let closure):
+            return try closure(self)
         }
     }
 
