@@ -10,18 +10,9 @@ import Foundation
 
 open class DictionaryEncoder: Encoder {
     open var codingPath: [CodingKey] = []
-    open var dateEncodingStrategy: DateEncodingStrategy = .deferredToDate
+    open var dateEncodingStrategy = JSONEncoder.DateEncodingStrategy.deferredToDate
     open var userInfo: [CodingUserInfoKey: Any] = [:]
     private(set) var storage = Storage()
-
-    public enum DateEncodingStrategy {
-        case deferredToDate
-        case secondsSince1970
-        case millisecondsSince1970
-        case iso8601
-        case formatted(DateFormatter)
-        case custom((Date, Encoder) throws -> Void)
-    }
 
     public init() {}
 

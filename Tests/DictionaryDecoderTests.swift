@@ -80,7 +80,7 @@ class DictionaryDecoderTests: XCTestCase {
         decoder.dateDecodingStrategy = .millisecondsSince1970
         XCTAssertEqual(try decoder.decode(Model.self, from: ["date": date.timeIntervalSince1970 * 1000]), Model(date: date, optionalDate: nil))
 
-        if #available(iOS 15.0, *) {
+        if #available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *) {
             decoder.dateDecodingStrategy = .iso8601
             XCTAssertEqual(try decoder.decode(Model.self, from: ["date": date.ISO8601Format()]), Model(date: date, optionalDate: nil))
         }
@@ -101,3 +101,12 @@ class DictionaryDecoderTests: XCTestCase {
         XCTAssertEqual(try decoder.decode(Model.self, from: ["date": 13]), Model(date: date, optionalDate: nil))
     }
 }
+
+#if os(Linux)
+private extension Date {
+    func ISO8601Format() -> String {
+        let formatter = ISO8601DateFormatter()
+        return formatter.string(from: self)
+    }
+}
+#endif

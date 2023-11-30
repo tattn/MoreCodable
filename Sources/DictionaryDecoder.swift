@@ -11,18 +11,9 @@ import Foundation
 
 open class DictionaryDecoder: Decoder {
     open var codingPath: [CodingKey]
-    open var dateDecodingStrategy: DateDecodingStrategy = .deferredToDate
+    open var dateDecodingStrategy = JSONDecoder.DateDecodingStrategy.deferredToDate
     open var userInfo: [CodingUserInfoKey: Any] = [:]
     var storage = Storage()
-
-    public enum DateDecodingStrategy {
-        case deferredToDate
-        case secondsSince1970
-        case millisecondsSince1970
-        case iso8601
-        case formatted(DateFormatter)
-        case custom((_ decoder: Decoder) throws -> Date)
-    }
 
     public init() {
         codingPath = []

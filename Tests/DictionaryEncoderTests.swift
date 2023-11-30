@@ -164,7 +164,7 @@ class DictionaryEncoderTests: XCTestCase {
             XCTAssertEqual(dictionary["optionalDate"] as? TimeInterval, seed.model.optionalDate.map { $0.timeIntervalSince1970 * 1000 })
             XCTAssertEqual(dictionary.keys.count, seed.count)
 
-            if #available(iOS 15.0, *) {
+            if #available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *) {
             encoder.dateEncodingStrategy = .iso8601
             dictionary = try encoder.encode(seed.model)
                 XCTAssertEqual(dictionary["date"] as? String, seed.model.date.ISO8601Format())
@@ -193,3 +193,12 @@ class DictionaryEncoderTests: XCTestCase {
         }
     }
 }
+
+#if os(Linux)
+private extension Date {
+    func ISO8601Format() -> String {
+        let formatter = ISO8601DateFormatter()
+        return formatter.string(from: self)
+    }
+}
+#endif
