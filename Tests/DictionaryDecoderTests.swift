@@ -100,6 +100,15 @@ class DictionaryDecoderTests: XCTestCase {
         }
         XCTAssertEqual(try decoder.decode(Model.self, from: ["date": 13]), Model(date: date, optionalDate: nil))
     }
+
+    /// JSON has only one Number type, and allows "5" to be considered a Double, not just "5.0"
+    /// - seealso: https://www.json.org/img/number.png
+    func testNumberToDouble() throws {
+        struct Model: Codable, Equatable {
+            let double: Double?
+        }
+        XCTAssertEqual(try decoder.decode(Model.self, from: ["double": 5]), Model(double: 5))
+    }
 }
 
 #if os(Linux)

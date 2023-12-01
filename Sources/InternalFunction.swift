@@ -15,6 +15,12 @@ public enum MoreCodableError: Error {
 }
 
 func castOrThrow<T>(_ resultType: T.Type, _ object: Any, error: Error = MoreCodableError.cast) throws -> T {
+    /// Int literals cannot be cast as a Double using `as?` so `Double(<Int>)` must be used instead.
+    if let intValue = object as? Int,
+       let result = Double(intValue) as? T {
+        return result
+    }
+    /// Most `Any` types can be converted using `as?` if they're a compatible type
     guard let returnValue = object as? T else {
         throw error
     }
